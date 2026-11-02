@@ -69,7 +69,8 @@ export function chronoDates(text: string, tz: string, now = new Date()) {
   let happened = today, due: string | null = null, time: string | null = null;
   for (const r of chrono.parse(text, { instant: now, timezone: tzOffset(tz, now) }, { forwardDate: false })) {
     const d = ymd(r.start);
-    if (d <= today) { happened = d; continue; }
+    const laterToday = d === today && r.start.isCertain("hour") && r.start.date() > now;
+    if (d <= today && !laterToday) { happened = d; continue; }
     if (due) continue;
     due = d;
     if (r.start.isCertain("hour")) time = `${String(r.start.get("hour")).padStart(2, "0")}:${String(r.start.get("minute") ?? 0).padStart(2, "0")}`;

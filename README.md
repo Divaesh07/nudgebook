@@ -15,7 +15,7 @@ Stack: Next.js 16 · Tailwind 4 · Supabase (Postgres, Auth, pg_cron, pg_net) ·
 
 ## Self-host in ~15 minutes
 
-1. **Supabase**: create a project. Run both files in `supabase/migrations/` (SQL editor, or `supabase db push`).
+1. **Supabase**: create a project. Run `supabase/migrations/20261102000000_init.sql` (SQL editor, or `supabase db push`). One file: 5 tables, RLS, triggers, cron.
    - Auth → URL Configuration: Site URL = your app URL; add `http://localhost:3000/**` and `https://your-app.vercel.app/**` to Redirect URLs.
 2. **Keys**: `cp .env.example .env.local` and fill it in (`npx web-push generate-vapid-keys` for VAPID).
 3. **Run**: `npm install && npm run dev` → http://localhost:3000
@@ -52,7 +52,7 @@ curl -X POST "https://your-app.vercel.app/api/ingest?token=YOUR_TOKEN" \
 voice/text/SMS ─▶ /api/entries | /api/ingest ─▶ parse (Groq → rules) ─▶ add_entry() SQL
                                                                         ├─ entries   (the log)
                                                                         ├─ reminders (due_at in your timezone)
-                                                                        └─ trigger → reminder_pings (‑7d, ‑1d, 0)
+                                                                        └─ trigger → next_ping_at (‑7d, ‑1d, 0)
 pg_cron (1/min) ─▶ /api/cron/dispatch ─▶ claim_due_pings() ─▶ web-push ─▶ phone
 ```
 

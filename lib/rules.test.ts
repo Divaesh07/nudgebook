@@ -20,6 +20,10 @@ describe("parseLocal", () => {
     expect(p).toMatchObject({ due_date: "2026-12-05", due_time: "18:00", recur: null });
   });
 
+  it("later today with a time is a reminder", () => {
+    expect(parseLocal("remind me to call the bank at 6pm today", tz, now)).toMatchObject({ due_date: "2026-11-02", due_time: "18:00" });
+  });
+
   it("past date becomes happened_on", () => {
     const p = parseLocal("paid electricity bill yesterday", tz, now);
     expect(p).toMatchObject({ category: "bill", happened_on: "2026-11-01", due_date: "2026-12-01" });
