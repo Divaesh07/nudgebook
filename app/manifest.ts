@@ -14,6 +14,6 @@ export default function manifest(): MetadataRoute.Manifest {
       { src: "/icon/512", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
     // Android: share any SMS / text into the app
-    share_target: { action: "/", method: "GET", params: { title: "title", text: "text", url: "url" } },
+    share_target: { action: "/", method: "GET", enctype: "application/x-www-form-urlencoded", params: { title: "title", text: "text", url: "url" } },
   };
 }
