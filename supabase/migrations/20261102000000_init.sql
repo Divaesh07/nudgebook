@@ -22,6 +22,9 @@ end $$;
 create trigger on_auth_user_created after insert on auth.users
   for each row execute function private.handle_new_user();
 
+-- users who signed up before this migration
+insert into public.profiles (id) select id from auth.users on conflict do nothing;
+
 -- entries: what happened ----------------------------------------------------
 create table public.entries (
   id uuid primary key default gen_random_uuid(),
