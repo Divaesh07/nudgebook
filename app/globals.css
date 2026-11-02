@@ -1,26 +1,92 @@
 @import "tailwindcss";
 
+/* Warm journal palette (ui-ux-pro-max): brown ink on paper, indigo for "nudges". */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg: #fffbeb;
+  --surface: #ffffff;
+  --muted: #f8f3f0;
+  --border: #eadfd6;
+  --fg: #1c1917;
+  --fg-muted: #6b625c;
+  --primary: #92400e;
+  --on-primary: #ffffff;
+  --accent: #4f46e5;
+  --accent-soft: #eef2ff;
+  --danger: #b91c1c;
+  --ok: #15803d;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #15110e;
+    --surface: #201a16;
+    --muted: #2a231e;
+    --border: #3a302a;
+    --fg: #f5f0eb;
+    --fg-muted: #b4aaa2;
+    --primary: #f59e0b;
+    --on-primary: #1c1917;
+    --accent: #a5b4fc;
+    --accent-soft: #23234a;
+    --danger: #f87171;
+    --ok: #4ade80;
   }
 }
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-lora);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@keyframes ring {
+  from { transform: scale(1); opacity: 0.55; }
+  to { transform: scale(1.7); opacity: 0; }
+}
+@keyframes rise {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.animate-ring { animation: ring 1.4s ease-out infinite; }
+.animate-rise { animation: rise 220ms ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

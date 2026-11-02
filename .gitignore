@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.vitest
+!.env.example
+tsconfig.tsbuildinfo
+
+# local agent tooling (project ref + third-party skills)
+.mcp.json
+.agents/
+.claude/
+skills-lock.json
